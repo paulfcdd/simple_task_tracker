@@ -30,7 +30,7 @@ final class Task implements JsonSerializable
         $this->status = $newStatus;
     }
 
-    public function assignTo(?int $userId): void
+    public function assignTo(?UserUuid $userId): void
     {
         if ($this->status === TaskStatus::DONE) {
             throw new DomainException('Cannot assign a completed task.');
@@ -64,7 +64,7 @@ final class Task implements JsonSerializable
         return $this->status;
     }
 
-    public function getAssigneeId(): ?int
+    public function getAssigneeId(): ?UserUuid
     {
         return $this->assigneeId;
     }

@@ -7,3 +7,13 @@ task_create:
   path: /tasks
   controller: App\Controller\TaskController::create
   methods: [POST]
+
+tasks_update_status:
+  path: /tasks/{id}/status
+  controller: App\Controller\TaskController::updateStatus
+  methods: [PATCH, PUT]
+
+tasks_assign:
+  path: /tasks/{id}/assignee
+  controller: App\Controller\TaskController::assignTask
+  methods: [PATCH, PUT]

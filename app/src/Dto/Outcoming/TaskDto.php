@@ -13,7 +13,7 @@ class TaskDto
         public readonly string $title,
         public readonly string $description,
         public readonly string $status,
-        public readonly ?int $assigneeId,
+        public readonly ?string $assigneeId,
         public readonly \DateTimeImmutable $createdAt
     ) {}
 
@@ -24,7 +24,7 @@ class TaskDto
             $task->getTitle(),
             $task->getDescription(),
             $task->getStatus()->value,
-            $task->getAssigneeId(),
+            $task->getAssigneeId()?->value(),
             $task->getCreatedAt()
         );
     }

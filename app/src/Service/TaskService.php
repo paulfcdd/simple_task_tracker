@@ -8,6 +8,7 @@ use App\Dto\Incoming\CreateTaskDto;
 use App\Dto\Outcoming\TaskDto;
 use App\Entity\Task;
 use App\Enum\TaskStatus;
+use App\Exception\TaskNotFoundException;
 use App\Repository\Task\TaskRepositoryInterface;
 use App\ValueObject\TaskUuid;
 use App\ValueObject\UserUuid;
@@ -25,7 +26,12 @@ class TaskService
         ?UserUuid $assigneeId = null
     ): array
     {
-        return $this->repository->findAll();
+        $tasks = $this->repository->findAll($status, $assigneeId);
+
+        return array_map(
+            fn(Task $task): TaskDTO => TaskDTO::fromEntity($task),
+            $tasks
+        );
     }
 
     public function create(CreateTaskDto $dto): TaskDto
@@ -43,13 +49,31 @@ class TaskService
         return TaskDto::fromEntity($task);
     }
 
-    public function getAllCollection(): array
+    public function updateTaskStatus(TaskUuid $taskUuid, TaskStatus $status): TaskDTO
     {
-        $tasks = $this->repository->findAll();
+        $task = $this->repository->findById($taskUuid);
 
-        return array_map(
-            fn(Task $task) => TaskDTO::fromEntity($task),
-            $tasks
-        );
+        if (!$task) {
+            throw new TaskNotFoundException($taskUuid->value());
+        }
+
+        $task->updateStatus($status);
+        $this->repository->save($task);
+
+        return TaskDTO::fromEntity($task);
+    }
+
+    public function assignTask(TaskUuid $taskUuid, ?UserUuid $assigneeUuid): TaskDTO
+    {
+        $task = $this->repository->findById($taskUuid);
+
+        if (!$task) {
+            throw new TaskNotFoundException($taskUuid->value());
+        }
+
+        $task->assignTo($assigneeUuid);
+        $this->repository->save($task);
+
+        return TaskDTO::fromEntity($task);
     }
 }
