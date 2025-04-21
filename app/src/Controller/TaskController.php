@@ -83,7 +83,7 @@ class TaskController
 
             return new JsonResponse($taskDto, Response::HTTP_CREATED);
         } catch (\RuntimeException $exception) {
-            return new JsonResponse(['message' => 'Error'], 500);
+            return new JsonResponse(['message' => 'Error while creating task'], 500);
         }
     }
 

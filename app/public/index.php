@@ -45,11 +45,8 @@ $dispatcher = new EventDispatcher();
 $logger = null;
 
 $routerListener = new RouterListener($matcher, $requestStack, $context, $logger, $projectDir, $debug);
-$dispatcher->addSubscriber($routerListener);
 
-// Optional: Add ErrorListener for more robust error handling
-// $errorListener = new ErrorListener('App\\Controller\\ErrorController::show', $logger, $debug);
-// $dispatcher->addSubscriber($errorListener);
+$dispatcher->addSubscriber($routerListener);
 
 $controllerResolver = new ContainerControllerResolver($containerBuilder, $logger);
 
