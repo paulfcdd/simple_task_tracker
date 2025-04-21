@@ -1,0 +1,9 @@
+tasks_list:
+  path: /tasks
+  controller: App\Controller\TaskController::getCollection
+  methods: [GET]
+
+task_create:
+  path: /tasks
+  controller: App\Controller\TaskController::create
+  methods: [POST]

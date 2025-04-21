@@ -1,0 +1,53 @@
+parameters:
+
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  App\:
+    resource: '../src/'
+    exclude:
+      - '../src/DependencyInjection/'
+      - '../src/Entity/'
+      - '../src/DTO/'
+      - '../src/Enum/'
+      - '../src/Exception/'
+      - '../src/Factory/'
+
+  App\Repository\TaskRepositoryInterface:
+    class: App\Infrastructure\Persistence\InMemory\InMemoryTaskRepository
+
+  Symfony\Component\Serializer\Encoder\JsonEncoder: ~
+
+  Symfony\Component\Serializer\Normalizer\UidNormalizer: ~
+  Symfony\Component\Serializer\Normalizer\DateTimeNormalizer: ~
+  Symfony\Component\Serializer\Normalizer\ObjectNormalizer: ~
+  Symfony\Component\Serializer\Normalizer\BackedEnumNormalizer: ~
+
+  Symfony\Component\Serializer\Serializer:
+    arguments:
+      - [
+        '@Symfony\Component\Serializer\Normalizer\BackedEnumNormalizer',
+        '@Symfony\Component\Serializer\Normalizer\UidNormalizer',
+        '@Symfony\Component\Serializer\Normalizer\DateTimeNormalizer',
+        '@Symfony\Component\Serializer\Normalizer\ObjectNormalizer'
+      ]
+      - ['@Symfony\Component\Serializer\Encoder\JsonEncoder']
+    public: false
+
+  Symfony\Component\Serializer\SerializerInterface: '@Symfony\Component\Serializer\Serializer'
+
+  Symfony\Component\Validator\ValidatorBuilder:
+    factory: ['Symfony\Component\Validator\Validation', 'createValidatorBuilder']
+    calls:
+      - [enableAttributeMapping]
+
+  Symfony\Component\Validator\Validator\ValidatorInterface:
+    factory: ['@Symfony\Component\Validator\ValidatorBuilder', 'getValidator']
+
+  App\Controller\:
+    resource: '../src/Controller'
+    tags: ['controller.service_arguments']
+    public: true
