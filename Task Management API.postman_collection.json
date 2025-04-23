@@ -1,0 +1,104 @@
+{
+	"info": {
+		"_postman_id": "2d2e6df8-2ce8-470f-bd6e-ca0cbf52edca",
+		"name": "Task Management API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8150260",
+		"_collection_link": "https://blue-resonance-959436.postman.co/workspace/VeryBuggyApp~9e2cc1ef-6855-47a5-98eb-450aebe87b81/collection/8150260-2d2e6df8-2ce8-470f-bd6e-ca0cbf52edca?action=share&source=collection_link&creator=8150260"
+	},
+	"item": [
+		{
+			"name": "GetTaskCollection",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "CreateTask",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Title\",\n    \"description\": \"Description\",\n    // \"status\": \"test\"\n    \"status\": \"todo\"\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/tasks",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateTask",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"status\": \"in_progress\"\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/tasks/c1b2e8f7-6e4d-4b9c-8f2e-8d3a6b9c4e2f/status",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"tasks",
+						"c1b2e8f7-6e4d-4b9c-8f2e-8d3a6b9c4e2f",
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AssignUser",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"assigneeId\": \"a7a4b8f0-5c1a-4f7e-8d3b-9e6c1b9a2e8d\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/tasks/d2c3f9a8-7f5e-4cad-8a3f-9e4b7cad5f3a/assignee",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"tasks",
+						"d2c3f9a8-7f5e-4cad-8a3f-9e4b7cad5f3a",
+						"assignee"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

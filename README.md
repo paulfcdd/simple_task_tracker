@@ -28,6 +28,13 @@ The main layers are:
 
 HTTP Request -> Routing -> `TaskController` -> `Serializer` (deserialize) -> `CreateTaskDto` -> `Validator` (validate) -> `TaskService` -> Create `Task` Entity & `TaskUuid` VO -> `TaskRepositoryInterface` (`save`) -> `InMemoryTaskRepository` (implements interface, saves to array) -> `TaskDTO` (created by Service) -> `TaskController` -> `JsonResponse` -> HTTP Response
 
+## Installation
+1. Run `docker compose up -d --build` in project folder
+2. Run `docker compose exec app bash` to enter app container
+3. Rub `composer install` to install dependencies
+
+## Usage
+1. Import Postman collection `Task Management API.postman_collection.json` to Your Postman app and make requests 
 **ASCII Diagram:**
 
 ```ascii
